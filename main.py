@@ -1,5 +1,6 @@
 import numpy as np 
 import cv2 as cv
+import time
 
 HAUTEUR = 480
 LARGEUR = 640
@@ -29,6 +30,7 @@ def update():
 
 for i in range(10):
   update()
+  time.sleep(1)
 
 
 cv.waitKey(0)
