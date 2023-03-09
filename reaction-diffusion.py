@@ -1,7 +1,6 @@
 import numpy as np 
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import seaborn as sns
 import cv2 as cv
 
 def laplacien1D(a, dx):
@@ -187,7 +186,7 @@ class Simulation2D():
         '''  
         self.initialisation()
         fig, ax = self.initialisation_graphique()
-        for i in range(nb_etapes):
+        for _ in range(nb_etapes):
             self.actualiser()
         
         
@@ -239,6 +238,6 @@ largeur = 250
 dx = 1
 dt = 0.001
 Sim2  = Simulation2D(Da, Db, Ra, Rb, initialisation_aleatoire, largeur = largeur, hauteur = largeur, dx=dx, dt=dt, etapes=250)
-Sim2.creer_video("rendu.mp4", 250, couleur=True)
-# Sim2.creer_image("output.png", 50)
+# Sim2.creer_video("rendu.mp4", 250, couleur=True)
+Sim2.creer_image("output.png", 10)
 # Sim2.simulation(couleur=True)
