@@ -132,52 +132,60 @@ class Simulation2D():
         fig, ax = plt.subplots(figsize = (10,10))
         return fig, ax
     
-    def plot_evolution_outcome(self, filename, n_steps):
-        """
-        Evolves and save the outcome of evolving the system for n_steps
-        """
+    def real_time_sim(self):
         self.initialize()
         cv.namedWindow('simulation', cv.WINDOW_KEEPRATIO)
         cv.resizeWindow('simulation', 300, 300)
-        fig, ax = self.initialize_figure()
-        for i in range(n_steps):
+        while True:
             self.update()
             cv.imshow("simulation", self.a*255)
             if cv.waitKey(10) & 0xFF == ord('q'):
                 break
         cv.destroyAllWindows()
 
+    def create_png(self, filename, n_steps):
+        """
+        Evolves and save the outcome of evolving the system for n_steps
+        """
+        self.initialize()
+        fig, ax = self.initialize_figure()
+        for i in range(n_steps):
+            self.update()
         
         
-        # self.draw(ax)
-        # fig.savefig(filename)
-        # plt.close()
+        self.draw(ax)
+        fig.savefig(filename)
+        plt.close()
 
-    def plot_time_evolution(self, filename, n_steps=30):
+    def create_gif(self, filename, n_steps=30):
         """
         Creates a gif from the time evolution of a basic state syste.
         """
         self.initialize()
-        # fig, ax = self.initialize_figure()
-        video = cv.VideoWriter(filename, cv.VideoWriter_fourcc(*'mp4v'), fps=10, frameSize=self.a.shape, isColor=False)
-        # def step(t):
-        #     self.update()
-        #     self.draw(ax)
+        fig, ax = self.initialize_figure()
+        def step(t):
+            self.update()
+            self.draw(ax)
+
+        anim = animation.FuncAnimation(fig, step, frames=np.arange(n_steps), interval=20)
+        anim.save(filename=filename, dpi=60, fps=10, writer='pillow')
+        plt.close()
+    
+    def create_video(self, filename, n_steps=30):
+        """
+        Creates a video from the time evolution of a basic state syste.
+        """
+        self.initialize()
+        video = cv.VideoWriter(filename, cv.VideoWriter_fourcc(*"FFV1"), fps=10, frameSize=(100, 100), isColor=False)
         for i in range(n_steps):
             self.update()
-            video.write(self.a*255)
+            frame = self.a*255
+            video.write(frame)
             # if i%10==0:
-            #     cv.imshow("simulation", self.a*255)
+            #     cv.imshow("simulation", frame)
             #     cv.waitKey(0)
             #     cv.destroyAllWindows()
-        video.write(self.a*255)
         video.release()
-        # cv.imshow("simulation", self.a*255)
-        # cv.waitKey(0)
-        # cv.destroyAllWindows()
-        # anim = animation.FuncAnimation(fig, step, frames=np.arange(n_steps), interval=20)
-        # anim.save(filename=filename, dpi=60, fps=10, writer='pillow')
-        # plt.close()
 
 Da, Db, alpha, beta = 1, 100, -0.005, 10
 
@@ -190,6 +198,7 @@ width = 100
 dx = 1
 dt = 0.001
 Sim2  = Simulation2D(Da, Db, Ra, Rb, random_initialization, width = width, height = width, dx=dx, dt=dt, steps=250)
-# Sim2.plot_time_evolution("graph.mp4", 50)
-Sim2.plot_evolution_outcome("output.png", 50)
+# Sim2.plot_time_evolution("graph.avi", 50)
+# Sim2.plot_evolution_outcome("output.png", 50)
+# Sim2.real_time_sim()
 
