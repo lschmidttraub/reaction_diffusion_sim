@@ -1,5 +1,16 @@
 # reaction_diffusion_sim
 
+LANGUAGES:
+Python
+
+LIBRARIES:
+numpy
+matplotlib
+cv2
+scipy
+
+
+
 IMPORTANT LINKS: 
 https://en.wikipedia.org/wiki/Reaction%E2%80%93diffusion_system
 https://en.wikipedia.org/wiki/Turing_pattern
