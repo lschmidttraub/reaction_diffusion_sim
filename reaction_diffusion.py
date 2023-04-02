@@ -25,11 +25,14 @@ def laplacien2D(a, dx):
         + np.roll(a,-1,axis=1)
     ) / (dx ** 2)
 
-def initialisation_aleatoire(shape):
+def initialisation_aleatoire(forme):
     '''
     Permet de générer deux tableau à valeurs aléatoires a et b
     '''
-    return (np.random.normal(loc=0, scale=0.05, size=shape), np.random.normal(loc=0, scale=0.05, size=shape))
+    return (np.random.normal(loc=0, scale=0.05, size=forme), np.random.normal(loc=0, scale=0.05, size=forme))
+
+def initialisation_aleatoire2(forme):
+    return (np.random.random(forme), np.random.random(forme))
 
 class Simulation1D():
     '''
@@ -118,14 +121,13 @@ class Simulation2D():
     '''
     Simulation d'un système de réaction-diffusion dans 2 dimensions
     '''
-    def __init__(self, Da, Db, Ra, Rb, f_init, largeur=1000, hauteur = 1000, dx=1, dt=0.1, etapes=1):
+    def __init__(self, Da, Db, Ra, Rb, f_init, forme=(1000,1000), dx=1, dt=0.1, etapes=1):
         self.Da = Da
         self.Db = Db
         self.Ra = Ra
         self.Rb = Rb
         self.f_init = f_init
-        self.largeur = largeur
-        self.hauteur = hauteur
+        self.forme = forme
         self.dx = dx
         self.dt = dt
         self.etapes = etapes
@@ -135,7 +137,7 @@ class Simulation2D():
         Initialise les paramètres de la simulation
         '''
         self.t = 0
-        self.a, self.b = self.f_init((self.hauteur, self.largeur))
+        self.a, self.b = self.f_init(self.forme)
     
     def actualiser(self):
         '''
@@ -172,9 +174,10 @@ class Simulation2D():
         while True:
             self.actualiser()
             if couleur:
-                image = np.stack((self.a*255, np.zeros((self.largeur, self.hauteur)), self.b*255), axis=2)
+                image = np.stack((self.a*255, np.zeros(self.forme), self.b*255), axis=2)
             else:
                 image = self.a*255
+            image = cv.resize(image, self.forme*2, interpolation = cv.INTER_LINEAR)
             cv.imshow("simulation", image)
             if cv.waitKey(10) == ord('q'):
                 break
@@ -214,30 +217,30 @@ class Simulation2D():
         '''
         self.initialisation()
         if couleur:
-            video = cv.VideoWriter(fichier, cv.VideoWriter_fourcc(*"mp4v"), fps=10.0, frameSize=(self.largeur, self.hauteur))
+            video = cv.VideoWriter(fichier, cv.VideoWriter_fourcc(*"mp4v"), fps=10.0, frameSize=self.forme)
         else:
-            video = cv.VideoWriter(fichier, cv.VideoWriter_fourcc(*"mp4v"), fps=10.0, frameSize=(self.largeur, self.hauteur), isColor=False)
+            video = cv.VideoWriter(fichier, cv.VideoWriter_fourcc(*"mp4v"), fps=10.0, frameSize=self.forme, isColor=False)
 
         for _ in range(nb_etapes):
             self.actualiser()
             if couleur:
-                image = np.stack((self.a*255, np.zeros((self.largeur, self.hauteur)), self.b*255), axis=2)
+                image = np.stack((self.a*255, np.zeros(self.forme), self.b*255), axis=2)
             else:
                 image = self.a*255
             video.write(image.astype(np.uint8))
         video.release()
 
-Da, Db, alpha, beta = 1, 40, -0.005, 15
+Da, Db, alpha, beta = (1, 40, -0.005, 15)
 
 def Ra(a,b): 
     return a - a ** 3 - b + alpha
 def Rb(a,b): 
     return (a - b) * beta
 
-largeur = 250
+largeur = 100
 dx = 1
 dt = 0.001
-Sim2  = Simulation2D(Da, Db, Ra, Rb, initialisation_aleatoire, largeur = largeur, hauteur = largeur, dx=dx, dt=dt, etapes=250)
+Sim2  = Simulation2D(Da, Db, Ra, Rb, initialisation_aleatoire, forme = (largeur, largeur), dx=dx, dt=dt, etapes=250)
 # Sim2.creer_video("rendu.mp4", 250, couleur=True)
-Sim2.creer_image("output.png", 10)
-# Sim2.simulation(couleur=True)
+# Sim2.creer_image("output.png", 10)
+Sim2.simulation()
