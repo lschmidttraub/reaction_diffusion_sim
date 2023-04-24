@@ -146,7 +146,7 @@ if afficher_p:
     print("Valeurs prédéfinies pour le modèle Fitzugh-Nagumo: (Da, Db, alpha, beta, dt)")
     for i in range(len(FN_presets)):
         print(str(i+1) + ".", FN_presets[i])
-    print("Valeurs prédéfinies pour le modèle Gray-Scott: (Da, Db, f, k, dt)")
+    print("\nValeurs prédéfinies pour le modèle Gray-Scott: (Da, Db, f, k, dt)")
     for i in range(len(GS_presets)):
         print(str(i+1) + ".", GS_presets[i])
     exit()

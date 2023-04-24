@@ -60,7 +60,7 @@ class Simulation2D():
             ordre[pos[couleur[1]]]=self.b*255
             img = np.stack(ordre, axis=2)
         else:
-            img = self.a
+            img = self.a*255
         return img
         
     
@@ -147,7 +147,7 @@ if afficher_p:
     print("Valeurs prédéfinies pour le système Fitzugh-Nagumo (Default): (Da, Db, alpha, beta, dt)")
     for i in range(len(FN_presets)//2):
         print(str(i+1) + ".", FN_presets[i*2],":", FN_presets[i*2+1])
-    print("Valeurs prédéfinies pour le système Gray-Scott: (Da, Db, f, k, dt)")
+    print("\nValeurs prédéfinies pour le système Gray-Scott: (Da, Db, f, k, dt)")
     for i in range(len(GS_presets)//2):
         print(str(i+1) + ".", GS_presets[i*2],":", GS_presets[i*2+1])
     exit()
