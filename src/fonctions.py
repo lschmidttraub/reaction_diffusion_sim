@@ -65,7 +65,7 @@ def initialisation_aleatoire(forme, symetrie=0):
         a, b = symetrique(a, symetrie), symetrique(b, symetrie)
     return a,b
 
-def initialisation_GS(forme, symetrie):
+def initialisation_GS(forme, symetrie=0):
     """
     Fonction d'initialisation du modèle Gray-Scott.
 
@@ -78,11 +78,16 @@ def initialisation_GS(forme, symetrie):
     """
     a = np.ones(forme)
     b = np.zeros(forme)
-    centre_L = int(forme[0] / 2)
-    centre_l = int(forme[1] / 2)
-    
-    a[centre_L-20:centre_L+20,centre_l-20:centre_l+20] = 0.5
-    b[centre_L-20:centre_L+20,centre_l-20:centre_l+20] = 0.25
+    if len(a.shape)==1:
+        centre=a.shape[0]//2
+        a[centre-20:centre+20]=0.5
+        b[centre-20:centre+20]=0.5
+    else:
+        centre_L = forme[0] // 2
+        centre_l = forme[1] // 2
+        
+        a[centre_L-20:centre_L+20,centre_l-20:centre_l+20] = 0.5
+        b[centre_L-20:centre_L+20,centre_l-20:centre_l+20] = 0.25
     
     a += np.random.normal(scale=0.05, size=forme)
     b += np.random.normal(scale=0.05, size=forme)
@@ -115,7 +120,7 @@ def perturbation(forme):
     forme=np.array(forme)
     a  = np.zeros(forme)
     if len(a.shape) == 1:
-        a[int(a.shape[0] / 2)] = 0.5
+        a[a.shape[0] // 2] = 0.5
     elif len(a.shape) == 2:
-        a[int(a.shape[0] / 2), int(a.shape[1] / 2)] = 0.5
+        a[a.shape[0] // 2, a.shape[1] // 2] = 0.5
     return a, np.zeros(forme)
