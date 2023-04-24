@@ -1,7 +1,6 @@
 # reaction_diffusion_sim
 ## Simulations de systèmes de réaction-diffusion, motifs de Turing à échelles multiples
 ![Motif de Turing à échelles multiples](src/rendus/img_mstp.png)
-![graphique Fitznugh-Nagumo](src/rendus/FN_img.png)
 
 
 
@@ -21,11 +20,11 @@ $ pip install -r requirements.txt
 ### Dépendances
 LANGAGE: Python 3.9.13
 
-LIBRAIRIES:
-matplotlib==3.5.1
-numpy==1.22.3
-opencv_python==4.7.0.72
-scipy==1.10.1
+LIBRAIRIES:  
+matplotlib==3.5.1  
+numpy==1.22.3  
+opencv_python==4.7.0.72  
+scipy==1.10.1  
 
 ## Tutorial
 ```
@@ -73,6 +72,7 @@ optional arguments:
 
 ## Fonctionnement
 ### Systèmes de réaction-diffusion
+<img src="src/rendus/FN_img.png" alt="graphique Fitznugh-Nagumo" width="200"/>
 
 Les modèles de réaction-diffusion décrivent l'évolution de concentrations de deux réactifs A et B dans l'espace. Ce modèle mathématique est décrit par les équations:
 $$\frac{\partial A}{\partial t} = D_A\nabla_A+R_A$$
