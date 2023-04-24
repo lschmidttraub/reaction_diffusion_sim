@@ -73,7 +73,6 @@ optional arguments:
 
 ## Fonctionnement
 ### Systèmes de réaction-diffusion
-![Simulation Fitzugh-Nagumo](src/rendus/FN_video.mp4)
 
 Les modèles de réaction-diffusion décrivent l'évolution de concentrations de deux réactifs A et B dans l'espace. Ce modèle mathématique est décrit par les équations:
 $$\frac{\partial A}{\partial t} = D_A\nabla_A+R_A$$
@@ -86,7 +85,7 @@ $$R_B(A,B)=\beta(A-B)$$
 
 Equations Gray-Scott:
 $$R_A(A,B)=-AB^2+f(1-A)$$
-$$R_b(A,B)=AB^2-(f+k)b$$
+$$R_B(A,B)=AB^2-(f+k)B$$
 
 Pour simuler ces équations de réaction-diffusion, on utilise la [Méthode des différences finies](https://fr.wikipedia.org/wiki/M%C3%A9thode_des_diff%C3%A9rences_finies): A chaque itération, on calcule la valeur discrétisée de $\frac{\partial A}{\partial t}$ et $\frac{\partial B}{\partial t}$, et on les ajoute aux tableau A et B
 
@@ -108,4 +107,4 @@ sinon
 
 Afin d'être plus efficace, notre implémentation ne stocke que les variations des différentes échelles, et pas leurs valeurs.
 On exploite églament la propriété qui dit que la transformée de Fourier d'un produit de convolution s'obtient par multiplication des transformées de Fourier des fonctions :
-$$r(x)=\{g\ast h\}(x)=\mathscr{F}^{-1}\{G\dot H\}$$
+$$r(x)=\left\{g\ast h\right\}(x)=\mathscr{F}^{-1}\left\{G\cdot H\right\}$$
