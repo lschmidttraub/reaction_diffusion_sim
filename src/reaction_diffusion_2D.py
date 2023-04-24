@@ -66,11 +66,12 @@ class Simulation2D():
     
     def simulation(self, couleur):
         """
-        Simulation du modèle de réaction en 2 dimensions. Tapez "q" pour sortir de la simulation.
+        Simulation du modèle de réaction en 2 dimensions. 
 
         Args:
             couleur (str): couleur des substances A et B
         """
+        print("Tapez 'q' pour sortir de la simulation.")
         self.initialisation()
         cv.namedWindow('simulation', cv.WINDOW_KEEPRATIO)
         ratio_img =self.forme[1]/self.forme[0]

@@ -59,8 +59,9 @@ class Simulation1D():
     
     def simulation(self):
         """
-        Simulation du modèle de réaction-diffusion en 1 dimension (équation Fitzugh-Nagumo). Tapez "q" pour fermer la fenêtre.
+        Simulation du modèle de réaction-diffusion en 1 dimension (équation Fitzugh-Nagumo).
         """
+        print("Tapez 'q' pour sortir de la simulation.")
         self.initialisation()
         fig, ax = plt.subplots()
         

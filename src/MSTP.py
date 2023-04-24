@@ -67,8 +67,9 @@ class MSTP():
 
     def simulation(self):
         """
-        Afficher la simulation en temps réel. Appuyez "q" sur le clavier pour fermer la fenêtre.
+        Afficher la simulation en temps réel.
         """
+        print("Tapez 'q' pour sortir de la simulation.")
         self.initialisation()
         cv.namedWindow('simulation', cv.WINDOW_KEEPRATIO)
         ratio_img =self.forme[1]/self.forme[0]

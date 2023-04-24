@@ -1,10 +1,26 @@
 # reaction_diffusion_sim
-## Simulations de ssystèmes de réaction-diffusion en 1 et 2 dimensions, et à échelles multiples
-[![Motif de Turing à échelles multiples](src/rendus/img_mstp.png)]
+## Simulations de systèmes de réaction-diffusion, motifs de Turing à échelles multiples
+![Motif de Turing à échelles multiples](src/rendus/img_mstp.png)
 Introduction
 
 
-## Demo
+## Fonctionnement
+### Systèmes de réaction-diffusion
+![Simulation Fitzugh-Nagumo](src/rendus/FN_video.mp4)
+Les modèles de réaction-diffusion décrivent l'évolution de concentrations de deux réactifs A et B dans l'espace. Ce modèle mathématique est décrit par les équations:
+$$\frac{\partial A}{\partial t} = D_A*\nabla_A+R_A$$
+$$\frac{\partial B}{\partial t} = D_B*\nabla_B+R_B$$
+où $D_a$ et $D_B$ sont les vitesses diffusion des substances A et B et $\nabla$ est l'opérateur laplacien. $R_A$ et $R_B$ varient selon le modèle utilisé: 
+Fitzugh-Nagumo:
+$$R_A(A,B)=A-A^3-B+\alpha$$
+$$R_B(A,B)=\beta(A-B)$$
+
+
+Equations Gray-Scott:
+$$R_a(a,b)=-ab^2+f(1-a)$$
+$$R_b(a,b)=ab^2-(f+k)b$$
+### Motifs de Turing à échelles multiples
+
 
 ## Installation
 1.	Cloner le répertoire du projet et entre dans le dossier
@@ -18,10 +34,10 @@ $ cd reaction_diffusion_sim
 $ pip install -r requirements.txt
 ```
 
-### Dependencies
-LANGUAGE: Python 3.9.13
+### Dépendances
+LANGAGE: Python 3.9.13
 
-LIBRARIES:
+LIBRAIRIES:
 matplotlib==3.5.1
 numpy==1.22.3
 opencv_python==4.7.0.72
