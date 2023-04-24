@@ -10,7 +10,7 @@ class Simulation1D():
     """
     Simulation d'un système de réaction-diffusion dans une dimension
     """
-    def __init__(self, Da, Db, Ra, Rb, f_init, dt, longueur,  etapes):
+    def __init__(self, Da, Db, Ra, Rb, f_init, dt, longueur,  etapes, limites):
         self.Da = Da
         self.Db = Db
         self.Ra = Ra
@@ -19,6 +19,7 @@ class Simulation1D():
         self.longueur = longueur
         self.dt = dt
         self.etapes = etapes
+        self.limites = limites
     
     def initialisation(self):
         """
@@ -53,7 +54,7 @@ class Simulation1D():
         ax.plot(self.a, color="b", label="A")
         ax.plot(self.b, color="r", label="B")
         ax.legend()
-        ax.set_ylim(-1,1)
+        ax.set_ylim(self.limites[0],self.limites[1])
         ax.set_title("t = "+str(self.t))
     
     
@@ -128,26 +129,47 @@ class Simulation1D():
             self.actualiser()
         cv.imwrite("rendus/"+fichier, np.rot90(res)*255)
 
-presets = [
+FN_presets = [
     (3, 100, -0.005, 10, 0.002), 
     (1, 100, 0.01, 1, 0.002), 
     (5, 50, -0.05, 1, 0.002), 
 ]
 
+GS_presets = [
+    (0.19, 0.05, 0.06, 0.062, 1),  
+    (0.14, 0.06, 0.06, 0.062, 1),
+    (0.23, 0.085, 0.039, 0.058, 1),
+    (0.17, 0.095, 0.02, 0.05, 1)
+]
+
 if afficher_p:
-    print("Valeurs prédéfinies pour la simulation à 1 dimension: (Da, Db, alpha, beta, dt)")
-    for i in range(len(presets)):
-        print(str(i+1) + ".", presets[i])
+    print("Valeurs prédéfinies pour le modèle Fitzugh-Nagumo: (Da, Db, alpha, beta, dt)")
+    for i in range(len(FN_presets)):
+        print(str(i+1) + ".", FN_presets[i])
+    print("Valeurs prédéfinies pour le modèle Gray-Scott: (Da, Db, f, k, dt)")
+    for i in range(len(GS_presets)):
+        print(str(i+1) + ".", GS_presets[i])
     exit()
 
-if Da*Db*alpha*beta*dt == 0:
-    Da, Db, alpha, beta, dt = presets[p-1]
+if modele=="gs":
+    if Da*Db*f*k*dt==0:
+        Da, Db, f, k, dt = GS_presets[p-1]
 
-def Ra(a,b): 
-    return a - a ** 3 - b + alpha
-def Rb(a,b): 
-    return (a - b) * beta
-Sim  = Simulation1D(Da, Db, Ra, Rb, initialisation_gaussienne, dt, longueur, etapes)
+    def GS_Ra(a,b):
+        return -a*b*b+f*(1-a)
+
+    def GS_Rb(a,b):
+        return a*b*b-(f+k)*b
+    Sim  = Simulation1D(Da, Db, GS_Ra, GS_Rb, initialisation_GS, dt, longueur, etapes, (-0.5, 1.5))
+
+else:
+    if Da*Db*alpha*beta*dt==0:
+        Da, Db, alpha, beta, dt = FN_presets[p-1]
+    def FN_Ra(a,b): 
+        return a - a ** 3 - b + alpha
+    def FN_Rb(a,b): 
+        return (a - b) * beta
+    Sim  = Simulation1D(Da, Db, FN_Ra, FN_Rb, perturbation, dt, longueur, etapes, (-1,1))
    
 
 if option==1:
