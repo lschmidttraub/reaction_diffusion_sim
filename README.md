@@ -72,7 +72,7 @@ optional arguments:
 
 ## Fonctionnement
 ### Systèmes de réaction-diffusion
-<img src="src/rendus/FN_img.png" alt="graphique Fitznugh-Nagumo" width="200"/>
+<img src="src/rendus/FN_img.png" alt="graphique Fitznugh-Nagumo" width="500"/>
 
 Les modèles de réaction-diffusion décrivent l'évolution de concentrations de deux réactifs A et B dans l'espace. Ce modèle mathématique est décrit par les équations:
 $$\frac{\partial A}{\partial t} = D_A\nabla_A+R_A$$
