@@ -3,7 +3,6 @@ import cv2 as cv
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from fonctions import *
-import argparse
 from commandes import *
 
 class Simulation1D():
