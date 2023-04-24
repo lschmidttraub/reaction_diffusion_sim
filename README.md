@@ -107,4 +107,4 @@ sinon
 
 Afin d'être plus efficace, notre implémentation ne stocke que les variations des différentes échelles, et pas leurs valeurs.
 On exploite églament la propriété qui dit que la transformée de Fourier d'un produit de convolution s'obtient par multiplication des transformées de Fourier des fonctions :
-$$r(x)=\left\{g\ast h\right\}(x)=\mathscr{F}^{-1}\left\{G\cdot H\right\}$$
+$$r(x)=\\{g\ast h\\}(x)=\mathscr{F}^{-1}\\{G\cdot H\\}$$
