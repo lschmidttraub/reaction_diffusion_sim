@@ -47,7 +47,7 @@ class Simulation1D():
 
 
         Args:
-            ax (numpy.ndarray): Axes sur lequel tracer le graphique
+            ax (matplotlib.axes._subplots.AxesSubplot): Axes sur lequel tracer le graphique
         """
         ax.clear()
         ax.plot(self.a, color="b", label="A")
