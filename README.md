@@ -2,6 +2,10 @@
 ## Simulations de systèmes de réaction-diffusion, motifs de Turing à échelles multiples
 ![Motif de Turing à échelles multiples](src/rendus/img_mstp.png)
 
+Les modèles de Turing et sont une forme de système de réaction-diffusion développés par le mathématicien Alan Turing dans les années 1950. Ils ont une grande importance en mathématiques appliquées, en biologie et en chimie pour comprendre comment les motifs spatiaux se forment à partir de réactions chimiques complexes.
+
+Les systèmes de réaction-diffusion sont des systèmes dynamiques qui décrivent comment les concentrations de différentes espèces chimiques évoluent dans l'espace et dans le temps. Ces systèmes sont basés sur des équations de réaction-diffusion, qui prennent en compte à la fois les réactions chimiques entre les différentes espèces et les effets de diffusion qui les font se déplacer dans l'espace. L'objectif de ce projet est de simuler ces systèmes de réaction-diffusion.
+
 
 
 
