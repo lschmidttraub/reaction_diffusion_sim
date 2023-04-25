@@ -4,8 +4,8 @@ parser = argparse.ArgumentParser(description="trouve les commandes entrées")
 
 parser.add_argument("-L", "--longueur", type=int, default=300, help="Longueur de l'affichage")
 parser.add_argument("-l", "--largeur", type=int,  default=300, help="Largeur de l'affichage")
-parser.add_argument("-o", "--option", type=int, help="1. Simulation 2. Graphique 3. Video/GIF")
-parser.add_argument("-fi","--fichier", type=str, default="rendu.mp4", help="Nom du fichier qui stocke le résultat.")
+parser.add_argument("-o", "--option", type=int, default=1, help="1. Simulation 2. Graphique 3. Video/GIF")
+parser.add_argument("-fi","--fichier", type=str, help="Nom du fichier qui stocke le résultat.")
 parser.add_argument("-p", type=int, default=1, help="Choix parmi la liste de valeurs prédéfinies")
 parser.add_argument("-ap", action="store_true", help="Afficher les valeurs prédéfinies")
 
