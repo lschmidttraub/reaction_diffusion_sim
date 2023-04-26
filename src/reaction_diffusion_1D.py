@@ -178,3 +178,5 @@ elif option==2:
     Sim.creer_graphique(fichier, nb_etapes)
 elif option==3:
     Sim.creer_gif(fichier, nb_etapes)
+elif option==4:
+    Sim.evolution(fichier, nb_etapes)
