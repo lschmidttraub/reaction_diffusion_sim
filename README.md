@@ -98,19 +98,20 @@ Pour simuler ces équations de réaction-diffusion, on utilise la [Méthode des 
 ### Motifs de Turing à échelles multiples
 La simulation des motifs de Turing à échelles multiples consiste à lancer simultanément plusieures simulations de réaction-diffusion, de calculer leur variances, et d'ajuster la valeur de chaque pixel du tableau affiché avec celui qui a la plus petite variance
 Voici l'algorithme(tiré de ce [blog](https://softologyblog.wordpress.com/2011/07/05/multi-scale-turing-patterns/)):
+On commence par choisir, pour chaque échelle, un rayon d'activateur, un rayon d'inhibiteur et une petite quantité
 Pour chaque échelle:
 1. Faire la moyenne de chaque emplacement de cellule de grille sur un rayon circulaire spécifié par le rayon de l'activateur et stocker le résultat dans le tableau de l'activateur. 
 2. Faites la moyenne de chaque emplacement de cellule de grille sur un rayon circulaire spécifié par le rayon de l'inhibiteur et stockez le résultat dans le tableau de l'inhibiteur. 
-3. Déterminer la variation à chaque emplacement de la grille. Calculer la variation en utilisant l'identité `variation=variation+abs(activator[x,y]-inhibitor[x,y])`. 
+3. Déterminer la variation à chaque emplacement de la grille. Calculer la variation en utilisant l'identité `variation=variation+abs(activateur[x,y]-inhibiteur[x,y])`. 
 
 Une fois qu'on a enfin toutes les valeurs d'activateur, d'inhibiteur et de variation pour chaque échelle calculées, les cellules de la grille principale peuvent être mises à jour. Ceci est fait par:
-1. Trouver quelle échelles a la plus petite valeur de variation, c'est-à-dire trouver quelle échelle a la valeur de variation [x, y, scalenum] la plus faible et appeler cette meilleure variation
+1. Trouver quelle échelles a la plus petite valeur de variation, c'est-à-dire trouver quelle échelle a la valeur de variation `[x, y, echelle]` la plus faible et appeler cette meilleure variation
 2. En utilisant l'échelle avec la plus petite variation, mettez à jour la valeur de la grille
-si `activateur[x,y,meilleurevariation]>inhibiteur[x,y,meilleurevariation]` alors
-`grille[x,y] :=grille[x,y]+petites quantités[meilleure variation]`
+si `activateur[x,y,variation_min]>inhibiteur[x,y,variation_min]` alors
+`grille[x,y] :=grille[x,y]+petites_quantités[variation_min]`
 sinon
-`grille[x,y] :=grille[x,y]-petites quantités[meilleure variation]`
+`grille[x,y] :=grille[x,y]-petites_quantités[variation_min]`
 
-Afin d'être plus efficace, notre implémentation ne stocke que les variations des différentes échelles, et pas leurs valeurs.
+Afin d'être plus efficace, notre implémentation ne stocke que les variations des différentes échelles, et pas leurs valeurs. Nous avons également omis les petites valeurs qui règlent l'incrémentation du tableau.
 On exploite églament la propriété qui dit que la transformée de Fourier d'un produit de convolution s'obtient par multiplication des transformées de Fourier des fonctions :
 $$r(x)=\\{g\ast h\\}(x)=\mathscr{F}^{-1}\\{G\cdot H\\}$$
