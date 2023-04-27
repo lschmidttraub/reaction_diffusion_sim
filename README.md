@@ -73,6 +73,8 @@ optional arguments:
   -ra RA                Rayons des activateurs
   -ri RI                Rayons des inhibiteurs
 ```
+On peut également directement modifier les paramètres des simulations, mais cela nécessite une connaissance du modèle mathématique utilisé. La totalité des arguments peut être retrouvée dans le fichier `commandes.py`. Dans le cas du choix d'un grpahique ou d'un vidéo, le résultat est stocké dans le répertoire `src/rendus/`.
+
 
 ## Fonctionnement
 ### Systèmes de réaction-diffusion

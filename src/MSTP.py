@@ -17,6 +17,9 @@ class MSTP():
         self.var_min = np.zeros(self.forme, dtype = int)
         self.rogner = rogner
         if self.rogner:
+            # Si on a un nombre de symétries impraires, on peut avoir des zones floues aux bords de l'image, 
+            # ce qui donne un cercle "clair" dont le diamètre est le minimum entre la hauteur et la largeur de l'image.
+            # On a donc un rapport entre le tableau initial et le tableau rogné de côté_min/diagonale
             x,y = self.forme
             r = min(x,y)/np.sqrt(x**2+y**2)
             long, larg = x*r, y*r
@@ -55,6 +58,7 @@ class MSTP():
         """
         for n, noyau in enumerate(self.noyaux):
             # On prend la transformée de Fourier inverse pour actualiser la variance
+            # nouvelle_variation=variation+abs(activateur[x,y]-inhibiteur[x,y])
             self.variance[n] = np.fft.irfft2(np.fft.rfft2(self.tab)*noyau)
         self.var_min = np.argmin(self.variance**2, axis = 0)
         # On ajuste le tableau en fonction de la variance minimale 
