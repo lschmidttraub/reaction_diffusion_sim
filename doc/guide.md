@@ -56,6 +56,10 @@ optional arguments:
   -ri RI                Rayons des inhibiteurs
 ```
 La simulation à 1 dimension possède un quatrième option, qui suit l'évolution du système à travers le temps en créant une image où chaque colonne représente la concentration de la substance A à une étape.
-On peut également directement modifier les paramètres des simulations, mais cela nécessite une connaissance du modèle mathématique utilisé. La totalité des arguments peut être retrouvée dans le fichier `commandes.py`. Dans le cas du choix d'un grpahique ou d'un vidéo, le résultat est stocké dans le répertoire `src/rendus/`.
+
+
+On peut également directement modifier les paramètres des simulations, mais cela nécessite une connaissance du modèle mathématique utilisé. La totalité des arguments peut être retrouvée dans le fichier `commandes.py`. Dans le cas du choix d'un graphique ou d'une vidéo, le résultat est stocké dans le répertoire `src/rendus/`.
+
+
 Le programme est entièrement écrit en Python, et est donc compatible la grande majorité des architectures. Il a été conçu sur et pour le système d’exploitation Windows, mais il devrait également être compatible avec les OS Linux et Mac. Les librairies utilisées pour les simulations sont NumPy, OpenCV, Matplotlib et SciPy, qui sont tous des modules très répandus dans la communauté scientifique. Nous avons également utilisé la librairie argparse, qui fait partie de la Librairie Standard Python, pour permettre le contrôle du programme depuis l’interface de ligne de commande.
  
