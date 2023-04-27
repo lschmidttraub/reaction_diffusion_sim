@@ -39,7 +39,7 @@ $$r(x)=\\{g\ast h\\}(x)=\mathscr{F}^{-1}\\{G\cdot H\\}$$
 
 Ainsi, pour chaque échelle de la simulation, on actualise la variance de la manière suivante:
 $$V := T\ast (N_{activiteurs}-N_{inhibiteurs})$$
-$$\Leftrightarrow V := \mathscr{F}^{-1}\left\{\mathscr{F}\{T\}\cdot\mathscr{F}\{N_{activiteurs}-N_{inhibiteurs}\}\right\}$$
+$$\Leftrightarrow V := \mathscr{F}^{-1}\left\\{\mathscr{F}\\{T\\}\cdot\mathscr{F}\\{N_{activiteurs}-N_{inhibiteurs}\\}\right\\}$$
 
 
 # Architecture du projet
