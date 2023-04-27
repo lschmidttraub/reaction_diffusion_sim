@@ -33,7 +33,7 @@ si `activateur[x,y,variation_min]>inhibiteur[x,y,variation_min]` alors
 sinon
 `grille[x,y] :=grille[x,y]-petites_quantités[variation_min]`
 
-Afin d'être plus efficace, notre implémentation ne stocke que les variations des différentes échelles, et pas leurs valeurs.
+Afin d'être plus efficace, notre implémentation ne stocke que les variations des différentes échelles, et pas leurs valeurs. Nous avons également omis les petites valeurs qui règlent l'incrémentation du tableau.
 On exploite églament la propriété qui dit que la transformée de Fourier d'un produit de convolution s'obtient par multiplication des transformées de Fourier des fonctions :
 $$r(x)=\\{g\ast h\\}(x)=\mathscr{F}^{-1}\\{G\cdot H\\}$$
 
@@ -71,6 +71,11 @@ Le programme est fait pour être exécuté depuis la ligne de commande, en chois
 
 Nous avons choisi une architecture orientée objet pour notre programme, en créant des classes, car cette méthode offre plusieurs avantages. Elle permet de rendre le code clair, modulaire et facilement extensible, et elle permet également d'utiliser une seule classe pour simuler plusieurs modèles de réaction-diffusion.
 
-Toutes les images et les vidéos produites sont stockées dans le répertoire `src/rendus/`. Le format des images est celui précisé dans le nom du fichier, et celui des vidéos est le format mp4.
+Les classes sont à peu près organisées comme ceci:
+- Une fonction d'initialisation
+- Une fonction d'actualisation
+- Une fonction pour chacune des options (simulation, graphique ou vidéo)
+
+Toutes les images et les vidéos produites sont stockées dans le répertoire `src/rendus/`. Le format des images est celui précisé dans le nom du fichier, et celui des vidéos est le format mp4 et le format gif pour la simulation à 1 dimension.
 
 Le programme est entièrement écrit en Python, et est donc compatible la grande majorité des architectures. Il a été conçu sur et pour le système d’exploitation Windows, mais il devrait également être compatible avec les OS Linux et Mac. Les librairies utilisées pour les simulations sont NumPy, OpenCV, Matplotlib et SciPy, qui sont tous des modules très répandus dans la communauté scientifique. Nous avons également utilisé la librairie argparse dans le fichier `commandes.py`, qui fait partie de la Librairie Standard Python, pour permettre le contrôle du programme depuis l’interface de ligne de commande.
