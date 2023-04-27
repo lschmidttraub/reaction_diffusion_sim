@@ -74,7 +74,7 @@ optional arguments:
   -ri RI                Rayons des inhibiteurs
 ```
 La simulation à 1 dimension possède un quatrième option, qui suit l'évolution du système à travers le temps en créant une image où chaque colonne représente la concentration de la substance A à une étape.
-On peut également directement modifier les paramètres des simulations, mais cela nécessite une connaissance du modèle mathématique utilisé. La totalité des arguments peut être retrouvée dans le fichier `commandes.py`. Dans le cas du choix d'un grpahique ou d'un vidéo, le résultat est stocké dans le répertoire `src/rendus/`.
+On peut également directement modifier les paramètres des simulations, mais cela nécessite une connaissance du modèle mathématique utilisé. La totalité des arguments peut être retrouvée dans le fichier `commandes.py`. Dans le cas du choix d'un graphique ou d'une vidéo, le résultat est stocké dans le répertoire `src/rendus/`.
 
 
 ## Fonctionnement
