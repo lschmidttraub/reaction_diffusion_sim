@@ -1,6 +1,5 @@
 # Fonctionnement
 ## Systèmes de réaction-diffusion
-<img src="src/rendus/FN_img.png" alt="graphique Fitznugh-Nagumo" width="500"/>
 
 Les modèles de réaction-diffusion décrivent l'évolution de concentrations de deux réactifs A et B dans l'espace. Ce modèle mathématique est décrit par les équations:
 $$\frac{\partial A}{\partial t} = D_A\nabla_A+R_A$$
@@ -10,7 +9,6 @@ où $D_a$ et $D_B$ sont les vitesses diffusion des substances A et B et $\nabla$
 Fitzugh-Nagumo:
 $$R_A(A,B)=A-A^3-B+\alpha$$
 $$R_B(A,B)=\beta(A-B)$$
-
 
 Equations Gray-Scott:
 $$R_A(A,B)=-AB^2+f(1-A)$$
@@ -37,3 +35,14 @@ sinon
 Afin d'être plus efficace, notre implémentation ne stocke que les variations des différentes échelles, et pas leurs valeurs.
 On exploite églament la propriété qui dit que la transformée de Fourier d'un produit de convolution s'obtient par multiplication des transformées de Fourier des fonctions :
 $$r(x)=\\{g\ast h\\}(x)=\mathscr{F}^{-1}\\{G\cdot H\\}$$
+
+
+# Architecture du projet
+![Carte mentale](carte_mentale.png)
+|Fichier| Fonction | 
+|---| --- | 
+|`reaction_diffusion_1D.py`|Simule un système de réaction-diffusion en 1 dimension, avec la classe `Simulation1D`. |
+|`reaction_diffusion_2D.py`|Simule un système de réaction-diffusion en 1 dimension, avec la classe `Simulation2D`. |
+|`MSTP.py`|Simule les motifs de Turing à échelles multiples en utilisant la classe `MSTP`.  |
+|`fonctions.py`|Ce fichier contient l'ensemble des fonction extérieures aux classes qui sont utilisées, afin de rendre le code plus clair, et de permettre le partage de fonctions entre différents programmes.|
+|`commandes.py`|Utilise la librairie argparse pour gérer l'interface de commande de ligne. |
