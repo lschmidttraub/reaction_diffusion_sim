@@ -20,7 +20,7 @@ numpy==1.22.3
 opencv_python==4.7.0.72  
 scipy==1.10.1  
 
-## Tutorial
+## Commandes
 ```
 optional arguments:
   -h, --help            show this help message and exit
@@ -62,6 +62,7 @@ optional arguments:
                         Gray-Scott
   -ra RA                Rayons des activateurs
   -ri RI                Rayons des inhibiteurs
+```
 
 On peut également directement modifier les paramètres des simulations, mais cela nécessite une connaissance du modèle mathématique utilisé. La totalité des arguments peut être retrouvée dans le fichier commandes.py.
 Le programme est entièrement écrit en Python, et est donc compatible la grande majorité des architectures. Il a été conçu sur et pour le système d’exploitation Windows, mais il devrait également être compatible avec les OS Linux et MAC. Les librairies utilisées pour les simulations sont NumPy, OpenCV, Matplotlib et SciPy, qui sont tous des modules très répandus dans la communauté scientifique. Nous avons également utilisé la librairie argparse, qui fait partie de la Librairie Standard Python, pour permettre le contrôle du programme depuis l’interface de ligne de commande.
