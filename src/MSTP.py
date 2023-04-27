@@ -3,10 +3,11 @@ import cv2 as cv
 from fonctions import *
 from commandes import *
 
+
 class MSTP():
     def __init__(self, forme, initialisateur, r_activ, r_inhib, dt, symetrie, rogner):
         self.N = len(r_activ)
-        self.forme=np.array(forme)
+        self.forme = np.array(forme)
         self.initialisateur = initialisateur
         self.r_activ = np.array(r_activ)
         self.r_inhib = np.array(r_inhib)
@@ -14,14 +15,14 @@ class MSTP():
         self.dt = np.array(dt)
         self.symetrie = symetrie
         self.variance = np.zeros([self.N] + list(forme))
-        self.var_min = np.zeros(self.forme, dtype = int)
+        self.var_min = np.zeros(self.forme, dtype=int)
         self.rogner = rogner
         if self.rogner:
-            # Si on a un nombre de symétries impraires, on peut avoir des zones floues aux bords de l'image, 
+            # Si on a un nombre de symétries impraires, on peut avoir des zones floues aux bords de l'image,
             # ce qui donne un cercle "clair" dont le diamètre est le minimum entre la hauteur et la largeur de l'image.
             # On a donc un rapport entre le tableau initial et le tableau rogné de côté_min/diagonale
-            x,y = self.forme
-            r = min(x,y)/np.sqrt(x**2+y**2)
+            x, y = self.forme
+            r = min(x, y)/np.sqrt(x**2+y**2)
             long, larg = x*r, y*r
             L1, L2 = int(self.forme[0]-long)//2, int(self.forme[0]+long)//2
             l1, l2 = int(self.forme[1]-larg)//2, int(self.forme[1]+larg)//2
@@ -48,9 +49,11 @@ class MSTP():
             Returns:
                 numpy.ndarray: noyau circulaire
             """
-            k = np.fromfunction(lambda x, y: ((x-self.forme[0]/2)**2 + (y-self.forme[1]/2)**2 <= r**2)*1, self.forme, dtype=int).astype(np.uint8)
-            return k/np.sum(k) 
-        self.noyaux = [np.fft.rfft2(noyau(ri)-noyau(ra), s=self.forme) for ri, ra in zip(self.r_activ, self.r_inhib)]
+            k = np.fromfunction(lambda x, y: ((x-self.forme[0]/2)**2 + (
+                y-self.forme[1]/2)**2 <= r**2)*1, self.forme, dtype=int).astype(np.uint8)
+            return k/np.sum(k)
+        self.noyaux = [np.fft.rfft2(noyau(ri)-noyau(ra), s=self.forme)
+                       for ri, ra in zip(self.r_activ, self.r_inhib)]
 
     def actualiser(self):
         """
@@ -60,14 +63,15 @@ class MSTP():
             # On prend la transformée de Fourier inverse pour actualiser la variance
             # nouvelle_variation=variation+abs(activateur[x,y]-inhibiteur[x,y])
             self.variance[n] = np.fft.irfft2(np.fft.rfft2(self.tab)*noyau)
-        self.var_min = np.argmin(self.variance**2, axis = 0)
-        # On ajuste le tableau en fonction de la variance minimale 
-        self.tab += np.choose(self.var_min, self.dt[:, np.newaxis, np.newaxis]*np.sign(self.variance))
+        self.var_min = np.argmin(self.variance**2, axis=0)
+        # On ajuste le tableau en fonction de la variance minimale
+        self.tab += np.choose(self.var_min,
+                              self.dt[:, np.newaxis, np.newaxis]*np.sign(self.variance))
         # Normalisation min-max
-        self.tab= (self. tab - self.tab.min()) / (self.tab.max() - self.tab.min())
+        self.tab = (self. tab - self.tab.min()) / \
+            (self.tab.max() - self.tab.min())
         if self.symetrie:
             self.tab = symetrique(self.tab, self.symetrie)
-
 
     def simulation(self):
         """
@@ -76,12 +80,12 @@ class MSTP():
         print("Tapez 'q' pour sortir de la simulation.")
         self.initialisation()
         cv.namedWindow('simulation', cv.WINDOW_KEEPRATIO)
-        ratio_img =self.forme[1]/self.forme[0]
+        ratio_img = self.forme[1]/self.forme[0]
         cv.resizeWindow('simulation', (int(600*ratio_img), 600))
         while True:
             self.actualiser()
             if self.rogner:
-                img=self.tab[self.dim]*255  
+                img = self.tab[self.dim]*255
             else:
                 img = self.tab*255
             cv.imshow("simulation", img.astype(np.uint8))
@@ -110,19 +114,22 @@ class MSTP():
             nb_etapes (int): nombre d'étapes dans la vidéo
         """
         self.initialisation()
-        video = cv.VideoWriter(filename = "rendus/"+fichier, fourcc = cv.VideoWriter_fourcc(*"mp4v"), fps=10.0, frameSize=tuple(self.forme), isColor=False)
+        video = cv.VideoWriter(filename="rendus/"+fichier, fourcc=cv.VideoWriter_fourcc(
+            *"mp4v"), fps=10.0, frameSize=tuple(self.forme), isColor=False)
 
         for _ in range(nb_etapes):
             self.actualiser()
             image = self.tab*255
             video.write(image.astype(np.uint8))
         video.release()
-dt=[0.02]
+
+
+dt = [0.02]
 
 presets = [
-    ([ 64, 24,  9,  3,  1], [ 96, 32, 12, 4.5, 1.5]),
-    ([ 100, 20, 10, 5, 1], [ 200, 40, 20, 10, 2]),
-    ([ 100, 50, 20, 10, 5, 1], [ 150, 75, 30, 15, 7.5, 1.5]),
+    ([64, 24,  9,  3,  1], [96, 32, 12, 4.5, 1.5]),
+    ([100, 20, 10, 5, 1], [200, 40, 20, 10, 2]),
+    ([100, 50, 20, 10, 5, 1], [150, 75, 30, 15, 7.5, 1.5]),
     ([24,  9,  3,  1], [32, 12, 4.5, 1.5]),
 ]
 
@@ -135,12 +142,13 @@ if afficher_p:
 if not r_activ or not r_inhib:
     r_activ, r_inhib = presets[p-1]
 
-Sim = MSTP((largeur, longueur), initialisation_aleatoire, r_activ, r_inhib, dt, symetrie, rogner)
-   
+Sim = MSTP((largeur, longueur), initialisation_aleatoire,
+           r_activ, r_inhib, dt, symetrie, rogner)
 
-if option==1:
+
+if option == 1:
     Sim.simulation()
-elif option==2:
+elif option == 2:
     Sim.creer_image(fichier, nb_etapes)
-elif option==3:
+elif option == 3:
     Sim.creer_video(fichier, nb_etapes)

@@ -1,6 +1,7 @@
 import numpy as np
 import scipy.ndimage as ndi
 
+
 def laplacien1D(a):
     """
     Calculer l'opérateur laplacien discrétisé d'un tableau à 1 dimension.
@@ -13,9 +14,10 @@ def laplacien1D(a):
     """
     return (
         - 2 * a
-        + np.roll(a,1,axis=0) 
-        + np.roll(a,-1,axis=0)
+        + np.roll(a, 1, axis=0)
+        + np.roll(a, -1, axis=0)
     )
+
 
 def laplacien2D(a):
     """
@@ -29,11 +31,12 @@ def laplacien2D(a):
     """
     return (
         - 4 * a
-        + np.roll(a,1,axis=0) 
-        + np.roll(a,-1,axis=0)
-        + np.roll(a,+1,axis=1)
-        + np.roll(a,-1,axis=1)
+        + np.roll(a, 1, axis=0)
+        + np.roll(a, -1, axis=0)
+        + np.roll(a, +1, axis=1)
+        + np.roll(a, -1, axis=1)
     )
+
 
 def symetrique(a, symetrie):
     """
@@ -47,7 +50,8 @@ def symetrique(a, symetrie):
         np.array: tableau symétrique, moyenne des rotations de a
     """
     deg = 360/symetrie
-    return np.mean([ndi.rotate(a, deg*i, reshape = False, mode="wrap") for i in range(symetrie)], axis=0)
+    return np.mean([ndi.rotate(a, deg*i, reshape=False, mode="wrap") for i in range(symetrie)], axis=0)
+
 
 def initialisation_aleatoire(forme, symetrie=0):
     """
@@ -60,10 +64,11 @@ def initialisation_aleatoire(forme, symetrie=0):
     Returns:
         (np.array, np.array): 2 tableaux initialisés
     """
-    a,b = (np.random.random(forme), np.random.random(forme))
+    a, b = (np.random.random(forme), np.random.random(forme))
     if symetrie:
         a, b = symetrique(a, symetrie), symetrique(b, symetrie)
-    return a,b
+    return a, b
+
 
 def initialisation_GS(forme, symetrie=0):
     """
@@ -78,22 +83,23 @@ def initialisation_GS(forme, symetrie=0):
     """
     a = np.ones(forme)
     b = np.zeros(forme)
-    if len(a.shape)==1:
-        centre=a.shape[0]//2
-        a[centre-20:centre+20]=0.5
-        b[centre-20:centre+20]=0.5
+    if len(a.shape) == 1:
+        centre = a.shape[0]//2
+        a[centre-20:centre+20] = 0.5
+        b[centre-20:centre+20] = 0.5
     else:
         centre_L = forme[0] // 2
         centre_l = forme[1] // 2
-        
-        a[centre_L-20:centre_L+20,centre_l-20:centre_l+20] = 0.5
-        b[centre_L-20:centre_L+20,centre_l-20:centre_l+20] = 0.25
-    
+
+        a[centre_L-20:centre_L+20, centre_l-20:centre_l+20] = 0.5
+        b[centre_L-20:centre_L+20, centre_l-20:centre_l+20] = 0.25
+
     a += np.random.normal(scale=0.05, size=forme)
     b += np.random.normal(scale=0.05, size=forme)
     if symetrie:
         a, b = symetrique(a, symetrie), symetrique(b, symetrie)
-    return a,b
+    return a, b
+
 
 def initialisation_gaussienne(forme):
     """
@@ -107,6 +113,7 @@ def initialisation_gaussienne(forme):
     """
     return np.random.normal(scale=0.05, size=forme), np.random.normal(scale=0.05, size=forme)
 
+
 def perturbation(forme):
     """
     Crée une perturbation au centre d'un tableau rempli de 0
@@ -117,8 +124,8 @@ def perturbation(forme):
     Returns:
         numpy.ndarray: tableaux initialisés
     """
-    forme=np.array(forme)
-    a  = np.zeros(forme)
+    forme = np.array(forme)
+    a = np.zeros(forme)
     if len(a.shape) == 1:
         a[a.shape[0] // 2] = 0.5
     elif len(a.shape) == 2:
