@@ -40,6 +40,7 @@ $$r(x)=\\{g\ast h\\}(x)=\mathscr{F}^{-1}\\{G\cdot H\\}$$
 Ainsi, pour chaque échelle de la simulation, on actualise la variance de la manière suivante:
 $$V := T\ast (N_{activiteurs}-N_{inhibiteurs})$$
 $$\Leftrightarrow V := \mathscr{F}^{-1}\left\\{\mathscr{F}\\{T\\}\cdot\mathscr{F}\\{N_{activiteurs}-N_{inhibiteurs}\\}\right\\}$$
+où $N_{activiteurs}$ et $N_{inhibiteurs}$ sont les noyaux circulaires dont les rayons sont donnés, et $T$ est le tableau.
 
 
 # Architecture du projet
