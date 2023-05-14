@@ -73,11 +73,14 @@ class MSTP():
         if self.symetrie:
             self.tab = symetrique(self.tab, self.symetrie)
 
-    def simulation(self):
+    def simulation(self, fichier):
         """
         Afficher la simulation en temps réel.
+
+        Args:
+            fichier (str): nom du fichier ou sera stocké la capture
         """
-        print("Tapez 'q' pour sortir de la simulation.")
+        print("Tapez 'q' pour sortir de la simulation.\nTapez 's' pour prendre une capture de la simulation.")
         self.initialisation()
         cv.namedWindow('simulation', cv.WINDOW_KEEPRATIO)
         ratio_img = self.forme[1]/self.forme[0]
@@ -89,7 +92,10 @@ class MSTP():
             else:
                 img = self.tab*255
             cv.imshow("simulation", img.astype(np.uint8))
-            if cv.waitKey(10) == ord('q'):
+            k = cv.waitKey(10)
+            if k == ord('s'):
+                cv.imwrite("rendus/"+fichier, img.astype(np.uint8))
+            if k == ord('q'):
                 break
         cv.destroyAllWindows()
 
@@ -147,7 +153,7 @@ Sim = MSTP((largeur, longueur), initialisation_aleatoire,
 
 
 if option == 1:
-    Sim.simulation()
+    Sim.simulation(fichier)
 elif option == 2:
     Sim.creer_image(fichier, nb_etapes)
 elif option == 3:

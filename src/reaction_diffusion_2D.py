@@ -64,14 +64,15 @@ class Simulation2D():
             img = self.a*255
         return img
 
-    def simulation(self, couleur):
+    def simulation(self, fichier, couleur):
         """
         Simulation du modèle de réaction en 2 dimensions. 
 
         Args:
+            fichier (str): nom du fichier ou sera stocké la capture
             couleur (str): couleur des substances A et B
         """
-        print("Tapez 'q' pour sortir de la simulation.")
+        print("Tapez 'q' pour sortir de la simulation.\nTapez 's' pour prendre une capture de la simulation.")
         self.initialisation()
         cv.namedWindow('simulation', cv.WINDOW_KEEPRATIO)
         ratio_img = self.forme[1]/self.forme[0]
@@ -80,7 +81,10 @@ class Simulation2D():
             self.actualiser()
             img = self.determiner_img(couleur)
             cv.imshow("simulation", img.astype(np.uint8))
-            if cv.waitKey(10) == ord('q'):
+            k = cv.waitKey(10)
+            if k == ord('s'):
+                cv.imwrite("rendus/"+fichier, img.astype(np.uint8))
+            if k == ord('q'):
                 break
         cv.destroyAllWindows()
 
@@ -180,7 +184,7 @@ else:
 
 
 if option == 1:
-    Sim.simulation(couleur)
+    Sim.simulation(fichier, couleur)
 elif option == 2:
     Sim.creer_graphique(fichier, nb_etapes)
 elif option == 3:
