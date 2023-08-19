@@ -1,4 +1,10 @@
 # reaction_diffusion_sim
+## Lauréat national des Trophées NSI
+![Logo des Trophées NSI](doc/trophees-nsi-logo-orange.png)
+
+### Le projet Morphogénie a été nominée par le jury national pour le prix de l'ingénierie du concours "Les Trophées NSI" de 2023
+<hr>
+
 ## Simulations de systèmes de réaction-diffusion, motifs de Turing à échelles multiples
 ![Motif de Turing à échelles multiples](src/rendus/img_mstp.png)
 
